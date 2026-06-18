@@ -10,7 +10,7 @@ export default function Footer({ site }) {
           <div>&copy; {new Date().getFullYear()} Ben Davis. All rights reserved.</div>
         </div>
         <div className="foot-cta">
-          Want a website like this? <a href="https://buildmytribe.io" target="_blank" rel="noopener">Get one at BuildMyTribe &rarr;</a>
+          <a href="https://buildmytribe.io" target="_blank" rel="noopener">site by buildmytribe</a>
         </div>
       </div>
     </footer>
