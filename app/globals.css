@@ -289,3 +289,6 @@ section.block{padding:58px 0}
 .em-list .em-item{cursor:grab}
 .em-list .em-item.em-dragging{opacity:.4;cursor:grabbing}
 .em-on{scroll-behavior:auto}
+
+/* category tags: all solid blue, uniform, clearly labels */
+.pill, .pill.fill{background:var(--blue);border:1px solid var(--blue);color:#fff;cursor:default;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
