@@ -7,6 +7,8 @@ import ZoomImg from '@/components/ZoomImg';
 import Edit from '@/components/Edit';
 import Blocks from '@/components/Blocks';
 import PromoStrip from '@/components/PromoStrip';
+import GuideFeature from '@/components/GuideFeature';
+import PartnerStrip from '@/components/PartnerStrip';
 
 export default async function Home() {
   const c = await getContent();
@@ -80,6 +82,8 @@ export default async function Home() {
         </div>
       </section>
 
+      <GuideFeature guide={c.pages.about.guide} />
+      <PartnerStrip partner={c.pages.about.partner} />
       <PromoStrip promos={c.promoLinks} />
 
       <section className="blocks-section"><div className="wrap"><Blocks path="home.blocks" blocks={h.blocks} /></div></section>

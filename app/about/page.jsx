@@ -5,6 +5,8 @@ import ZoomImg from '@/components/ZoomImg';
 import Edit from '@/components/Edit';
 import Blocks from '@/components/Blocks';
 import PromoStrip from '@/components/PromoStrip';
+import GuideFeature from '@/components/GuideFeature';
+import PartnerStrip from '@/components/PartnerStrip';
 
 export async function generateMetadata() {
   const c = await getContent();
@@ -69,28 +71,8 @@ export default async function About() {
         </section>
       ) : null}
 
-      <section className="block" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <Reveal>
-            <div className="feature">
-              <div className="fcopy">
-                <div className="eyebrow"><Edit path="pages.about.guide.eyebrow">{p.guide.eyebrow}</Edit></div>
-                <h2 className="display"><Edit path="pages.about.guide.title">{p.guide.title}</Edit></h2>
-                <p><Edit path="pages.about.guide.body">{p.guide.body}</Edit></p>
-                <a href={p.guide.ctaHref} target="_blank" rel="noopener" className="btn btn-primary"><Edit path="pages.about.guide.ctaLabel">{p.guide.ctaLabel}</Edit> →</a>
-              </div>
-              <div className="fimg"><ZoomImg src={p.guide.image} editPath="pages.about.guide.image" alt={p.guide.title} /></div>
-            </div>
-          </Reveal>
-          <Reveal delay={1}>
-            <div className="partner">
-              <div className="code"><Edit path="pages.about.partner.code">{p.partner.code}</Edit></div>
-              <div className="pt"><b><Edit path="pages.about.partner.text_pre">{p.partner.text_pre}</Edit></b> <Edit path="pages.about.partner.text_rest">{p.partner.text_rest}</Edit></div>
-              <a href={p.partner.ctaHref} target="_blank" rel="noopener" className="btn btn-ghost"><Edit path="pages.about.partner.ctaLabel">{p.partner.ctaLabel}</Edit> →</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <GuideFeature guide={p.guide} />
+      <PartnerStrip partner={p.partner} />
 
       <PromoStrip promos={c.promoLinks} />
 
