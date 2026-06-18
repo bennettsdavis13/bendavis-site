@@ -135,4 +135,17 @@ export default function EditMode() {
   return (
     <>
       {!editing ? (
-        <button className="em-fab" onClick={() => setEditing(true)} aria-label="Edit site">✏️ Edit
+        <button className="em-fab" onClick={() => setEditing(true)} aria-label="Edit site">Edit site</button>
+      ) : (
+        <div className="em-bar">
+          <span className="em-title">Edit mode</span>
+          <span className="em-hint">Click text to edit, click a photo to replace, drag photos to reorder</span>
+          <span className="em-msg">{msg}</span>
+          <button className="em-btn" onClick={() => { if (!dirty || confirm('Discard unsaved changes?')) location.reload(); }}>Exit</button>
+          <button className="em-btn" onClick={logout}>Log out</button>
+          <button className="em-btn em-save" disabled={busy || !dirty} onClick={save}>{busy ? 'Saving...' : dirty ? 'Save' : 'Saved'}</button>
+        </div>
+      )}
+    </>
+  );
+}
