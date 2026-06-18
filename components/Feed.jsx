@@ -1,5 +1,7 @@
 import Reveal from './Reveal';
 
+// Tab-page showcase: vertical video on the left, photo masonry on the right.
+// Photos keep their natural aspect ratio (never cropped) and always fill the row.
 export default function Feed({ videoId, videoTitle, items = [], watchLabel }) {
   return (
     <div className="feed">
@@ -15,12 +17,14 @@ export default function Feed({ videoId, videoTitle, items = [], watchLabel }) {
           <span className="cap"><b>▶</b> {watchLabel || 'Watch'}</span>
         </Reveal>
       ) : null}
-      {items.map((g, i) => (
-        <Reveal key={i} className="feed-item" delay={((i + 1) % 3) + 1}>
-          <img src={g.src} alt={g.alt} loading="lazy" />
-          {g.caption ? <span className="cap">{g.caption}</span> : null}
-        </Reveal>
-      ))}
+      <div className="feed-photos">
+        {items.map((g, i) => (
+          <Reveal key={i} className="feed-item" delay={(i % 2) + 1}>
+            <img src={g.src} alt={g.alt} loading="lazy" />
+            {g.caption ? <span className="cap">{g.caption}</span> : null}
+          </Reveal>
+        ))}
+      </div>
     </div>
   );
 }

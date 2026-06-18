@@ -205,3 +205,11 @@ footer{border-top:1px solid var(--line);padding:38px 0}
 .foot-cta{border-top:1px solid var(--line);margin-top:24px;padding-top:20px;text-align:center;font-size:13px;color:var(--ink-soft);letter-spacing:.02em}
 .foot-cta a{font-weight:800;color:var(--blue-deep);text-transform:uppercase;letter-spacing:.07em}
 .foot-cta a:hover{color:var(--ink)}
+
+/* feed refinement: video left + photo masonry right, always filled, no cropping */
+.feed{display:flex;gap:22px;align-items:flex-start}
+.feed-video{flex:none;width:340px}
+.feed-photos{flex:1;column-count:2;column-gap:20px}
+.feed-photos .feed-item{margin:0 0 20px}
+@media(max-width:760px){.feed{flex-direction:column}.feed-video{width:100%;max-width:360px;margin:0 auto}.feed-photos{column-count:2}}
+@media(max-width:520px){.feed-photos{column-count:1}}
