@@ -267,3 +267,25 @@ section.block{padding:58px 0}
 .lb-img{max-width:96vw !important;max-height:92vh !important;width:auto !important;height:auto !important;border-radius:10px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);cursor:default;transform:none !important;filter:none !important;object-fit:contain !important}
 .lightbox-close{position:fixed;top:14px;right:22px;background:none;border:none;color:var(--cream);font-size:40px;line-height:1;cursor:pointer;font-weight:300;z-index:501}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ===== EDIT MODE ===== */
+.em-fab{position:fixed;right:20px;bottom:20px;z-index:600;background:var(--ink);color:var(--cream);border:none;border-radius:100px;padding:14px 22px;font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em;cursor:pointer;box-shadow:0 16px 40px -12px rgba(0,0,0,.5)}
+.em-fab:hover{background:var(--blue-deep)}
+.em-bar{position:fixed;left:0;right:0;bottom:0;z-index:600;background:var(--ink);color:var(--cream);display:flex;align-items:center;gap:16px;padding:12px 20px;box-shadow:0 -10px 30px -12px rgba(0,0,0,.5);font-family:'Archivo',sans-serif}
+.em-bar .em-title{font-weight:800;letter-spacing:.04em;color:#7fd1ee;white-space:nowrap}
+.em-bar .em-hint{font-size:13px;color:rgba(239,233,221,.7);flex:0 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.em-bar .em-msg{margin-left:auto;font-size:13px;color:#9fe0b0;white-space:nowrap}
+.em-btn{background:transparent;color:var(--cream);border:1.5px solid rgba(239,233,221,.5);border-radius:100px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer}
+.em-btn:hover{border-color:var(--cream)}
+.em-btn.em-save{background:var(--blue);border-color:var(--blue);color:#fff}
+.em-btn.em-save:disabled{opacity:.5;cursor:default}
+@media(max-width:680px){.em-bar .em-hint{display:none}}
+
+.em-text{outline:1.5px dashed rgba(58,159,199,.55);outline-offset:3px;border-radius:3px;transition:outline-color .15s;cursor:text}
+.em-text:hover{outline-color:var(--blue)}
+.em-text:focus{outline:2px solid var(--blue);background:rgba(58,159,199,.08)}
+.em-img{outline:2px dashed rgba(58,159,199,.6);outline-offset:3px;cursor:pointer !important;position:relative}
+.em-on [data-edit-img].em-img:hover{outline-color:var(--blue);filter:brightness(.85)}
+.em-list .em-item{cursor:grab}
+.em-list .em-item.em-dragging{opacity:.4;cursor:grabbing}
+.em-on{scroll-behavior:auto}

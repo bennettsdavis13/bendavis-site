@@ -2,6 +2,7 @@ import './globals.css';
 import { getContent } from '@/lib/content';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import EditMode from '@/components/EditMode';
 
 export async function generateMetadata() {
   const c = await getContent();
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }) {
         <Nav brand={c.site.brand} email={c.site.email} pages={c.pages} />
         <main id="top">{children}</main>
         <Footer site={c.site} />
+        <EditMode />
       </body>
     </html>
   );

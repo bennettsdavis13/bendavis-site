@@ -4,6 +4,7 @@ import Marquee from '@/components/Marquee';
 import Reveal from '@/components/Reveal';
 import EmailButton from '@/components/EmailButton';
 import ZoomImg from '@/components/ZoomImg';
+import Edit from '@/components/Edit';
 
 export default async function Home() {
   const c = await getContent();
@@ -19,9 +20,9 @@ export default async function Home() {
         <div className="wrap">
           <div className="hero-grid">
             <div className="hero-text">
-              <div className="kicker"><span className="dot"></span> {h.kicker}</div>
-              <h1 className="display">{h.h1line1}<span className="line2">{h.h1line2}</span></h1>
-              <p className="hero-sub"><b>{h.sub_bold}</b> {h.sub_rest}</p>
+              <div className="kicker"><span className="dot"></span> <Edit path="home.kicker">{h.kicker}</Edit></div>
+              <h1 className="display"><Edit as="span" path="home.h1line1">{h.h1line1}</Edit><Edit as="span" className="line2" path="home.h1line2">{h.h1line2}</Edit></h1>
+              <p className="hero-sub"><b><Edit path="home.sub_bold">{h.sub_bold}</Edit></b> <Edit path="home.sub_rest">{h.sub_rest}</Edit></p>
               <div className="hero-actions">
                 <EmailButton email={c.site.email} subject="Collab / Booking Inquiry" className="btn btn-primary" label={`${h.primaryCtaLabel} →`} />
                 <a href={c.social.instagram} target="_blank" rel="noopener" className="btn btn-ghost">{h.ghostCtaLabel}</a>
@@ -35,16 +36,19 @@ export default async function Home() {
                 <div className="tick"><i></i>0</div>
               </div>
               <div className="portrait">
-                <ZoomImg src={h.portrait} alt="Ben Davis, 6 foot 9 creator, actor and model" />
-                <div className="tag">{h.portraitTag}<small>{h.portraitTagSub}</small></div>
+                <ZoomImg src={h.portrait} editPath="home.portrait" alt="Ben Davis, 6 foot 9 creator, actor and model" />
+                <div className="tag"><Edit path="home.portraitTag">{h.portraitTag}</Edit><small><Edit path="home.portraitTagSub">{h.portraitTagSub}</Edit></small></div>
               </div>
             </div>
           </div>
         </div>
         <div className="stats" style={{ marginTop: 54 }}>
-          <div className="wrap"><div className="stats-inner">
+          <div className="wrap"><div className="stats-inner" data-edit-list="stats">
             {c.stats.map((s, i) => (
-              <div className="stat" key={i}><div className="n">{s.n}</div><div className="l">{s.l}</div></div>
+              <div className="stat" data-edit-index={i} key={i}>
+                <div className="n"><Edit path={`stats.${i}.n`}>{s.n}</Edit></div>
+                <div className="l"><Edit path={`stats.${i}.l`}>{s.l}</Edit></div>
+              </div>
             ))}
           </div></div>
         </div>
@@ -54,8 +58,8 @@ export default async function Home() {
 
       <section className="block">
         <div className="wrap">
-          <Reveal><div className="eyebrow">What I Do</div></Reveal>
-          <Reveal as="h2" className="display block-h2"><span style={{ fontSize: 'clamp(38px,6vw,76px)' }}>Work with me</span></Reveal>
+          <div className="eyebrow">What I Do</div>
+          <h2 className="display" style={{ fontSize: 'clamp(38px,6vw,76px)' }}>Work with me</h2>
           <div className="work-grid">
             {pillars.map((p, i) => {
               const pg = c.pages[p.key];
@@ -65,7 +69,7 @@ export default async function Home() {
                     <div className="num">{p.num}</div>
                     <h3>{pg.title}</h3>
                     <p>{pg.intro}</p>
-                    <div style={{ marginTop: 16, fontWeight: 800, letterSpacing: '.06em', color: 'var(--blue-deep)', fontSize: 13, textTransform: 'uppercase' }}>Explore &rarr;</div>
+                    <div style={{ marginTop: 16, fontWeight: 800, letterSpacing: '.06em', color: 'var(--blue-deep)', fontSize: 13, textTransform: 'uppercase' }}>Explore →</div>
                   </Link>
                 </Reveal>
               );
@@ -76,13 +80,13 @@ export default async function Home() {
 
       <section className="book">
         <div className="wrap">
-          <Reveal><div className="eyebrow">Always Open</div></Reveal>
-          <Reveal as="h2" className="display"><span>Let's <span className="accent">collab</span></span></Reveal>
-          <Reveal><p>Brand deals, bookings, shoots or something new. Slide into the DMs or send an email and let's make it.</p></Reveal>
-          <Reveal><div className="hero-actions" style={{ justifyContent: 'center' }}>
+          <div className="eyebrow">Always Open</div>
+          <h2 className="display">Let's <span className="accent">collab</span></h2>
+          <p>Brand deals, bookings, shoots or something new. Slide into the DMs or send an email and let's make it.</p>
+          <div className="hero-actions" style={{ justifyContent: 'center' }}>
             <EmailButton email={c.site.email} subject="Collab / Booking Inquiry" className="btn btn-primary" label={c.site.email} />
             <a href={c.social.instagram} target="_blank" rel="noopener" className="btn btn-ghost">DM on Instagram</a>
-          </div></Reveal>
+          </div>
         </div>
       </section>
     </>

@@ -2,6 +2,7 @@ import { getContent } from '@/lib/content';
 import Reveal from '@/components/Reveal';
 import Short from '@/components/Short';
 import ZoomImg from '@/components/ZoomImg';
+import Edit from '@/components/Edit';
 
 export async function generateMetadata() {
   const c = await getContent();
@@ -18,11 +19,11 @@ export default async function About() {
       <section className="block page-head">
         <div className="wrap about-head">
           <div>
-            <div className="eyebrow">{p.eyebrow}</div>
-            <h1 className="display"><span>{p.title}</span></h1>
+            <div className="eyebrow"><Edit path="pages.about.eyebrow">{p.eyebrow}</Edit></div>
+            <h1 className="display"><Edit path="pages.about.title">{p.title}</Edit></h1>
           </div>
           {p.heroImage ? (
-            <div className="about-hero-img"><ZoomImg src={p.heroImage} alt="Ben Davis, 6 foot 9 creator, actor and model" /></div>
+            <div className="about-hero-img"><ZoomImg src={p.heroImage} editPath="pages.about.heroImage" alt="Ben Davis, 6 foot 9 creator, actor and model" /></div>
           ) : null}
         </div>
       </section>
@@ -36,10 +37,12 @@ export default async function About() {
           </Reveal>
           <Reveal delay={1} className="about-copy">
             {p.paragraphs.map((para, i) => (
-              <p key={i} dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>') }} />
+              <p key={i} data-edit={`pages.about.paragraphs.${i}`} dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>') }} />
             ))}
-            <div className="about-list">
-              {p.pills.map((pill, i) => (<span className={`pill${i === 0 ? ' fill' : ''}`} key={i}>{pill}</span>))}
+            <div className="about-list" data-edit-list="pages.about.pills">
+              {p.pills.map((pill, i) => (
+                <span className={`pill${i === 0 ? ' fill' : ''}`} data-edit-index={i} key={i}><Edit path={`pages.about.pills.${i}`}>{pill}</Edit></span>
+              ))}
             </div>
           </Reveal>
         </div>
@@ -52,7 +55,7 @@ export default async function About() {
               <div className="video-panel">
                 <div className="vp-copy">
                   <div className="eyebrow">Say Hi</div>
-                  <h3>{p.videoCaption}</h3>
+                  <h3><Edit path="pages.about.videoCaption">{p.videoCaption}</Edit></h3>
                   <p>A quick hello, straight from me. Hit play and meet the 6'9" energy you'd be working with.</p>
                   <a href={c.social.instagram} target="_blank" rel="noopener" className="btn btn-ghost" style={{ marginTop: 8 }}>Follow on Instagram</a>
                 </div>
@@ -68,19 +71,19 @@ export default async function About() {
           <Reveal>
             <div className="feature">
               <div className="fcopy">
-                <div className="eyebrow">{p.guide.eyebrow}</div>
-                <h2 className="display">{p.guide.title}</h2>
-                <p>{p.guide.body}</p>
-                <a href={p.guide.ctaHref} target="_blank" rel="noopener" className="btn btn-primary">{p.guide.ctaLabel} &rarr;</a>
+                <div className="eyebrow"><Edit path="pages.about.guide.eyebrow">{p.guide.eyebrow}</Edit></div>
+                <h2 className="display"><Edit path="pages.about.guide.title">{p.guide.title}</Edit></h2>
+                <p><Edit path="pages.about.guide.body">{p.guide.body}</Edit></p>
+                <a href={p.guide.ctaHref} target="_blank" rel="noopener" className="btn btn-primary"><Edit path="pages.about.guide.ctaLabel">{p.guide.ctaLabel}</Edit> →</a>
               </div>
-              <div className="fimg"><ZoomImg src={p.guide.image} alt={p.guide.title} /></div>
+              <div className="fimg"><ZoomImg src={p.guide.image} editPath="pages.about.guide.image" alt={p.guide.title} /></div>
             </div>
           </Reveal>
           <Reveal delay={1}>
             <div className="partner">
-              <div className="code">{p.partner.code}</div>
-              <div className="pt"><b>{p.partner.text_pre}</b> {p.partner.text_rest}</div>
-              <a href={p.partner.ctaHref} target="_blank" rel="noopener" className="btn btn-ghost">{p.partner.ctaLabel} &rarr;</a>
+              <div className="code"><Edit path="pages.about.partner.code">{p.partner.code}</Edit></div>
+              <div className="pt"><b><Edit path="pages.about.partner.text_pre">{p.partner.text_pre}</Edit></b> <Edit path="pages.about.partner.text_rest">{p.partner.text_rest}</Edit></div>
+              <a href={p.partner.ctaHref} target="_blank" rel="noopener" className="btn btn-ghost"><Edit path="pages.about.partner.ctaLabel">{p.partner.ctaLabel}</Edit> →</a>
             </div>
           </Reveal>
         </div>

@@ -1,6 +1,7 @@
 import { getContent } from '@/lib/content';
 import Reveal from '@/components/Reveal';
 import EmailButton from '@/components/EmailButton';
+import Edit from '@/components/Edit';
 
 export async function generateMetadata() {
   const c = await getContent();
@@ -24,9 +25,9 @@ export default async function Contact() {
     <>
       <section className="block page-head">
         <div className="wrap">
-          <div className="eyebrow">{p.eyebrow}</div>
-          <h1 className="display"><span>{p.title}</span></h1>
-          <p className="lead">{p.intro}</p>
+          <div className="eyebrow"><Edit path="pages.contact.eyebrow">{p.eyebrow}</Edit></div>
+          <h1 className="display"><Edit path="pages.contact.title">{p.title}</Edit></h1>
+          <p className="lead"><Edit path="pages.contact.intro">{p.intro}</Edit></p>
           <div className="hero-actions" style={{ marginTop: 30 }}>
             <EmailButton email={c.site.email} subject="Collab / Booking Inquiry" className="btn btn-primary" label={c.site.email} />
             <a href={s.instagram} target="_blank" rel="noopener" className="btn btn-ghost">DM on Instagram</a>
@@ -36,22 +37,20 @@ export default async function Contact() {
 
       <section className="block connect" style={{ paddingTop: 64 }}>
         <div className="wrap">
-          <Reveal><div className="eyebrow">{p.connectEyebrow}</div></Reveal>
-          <Reveal as="h2" className="display"><span style={{ fontSize: 'clamp(38px,6vw,76px)' }}>Connect</span></Reveal>
+          <div className="eyebrow">{p.connectEyebrow}</div>
+          <h2 className="display" style={{ fontSize: 'clamp(38px,6vw,76px)' }}>Connect</h2>
           <div className="links-grid">
             {links.map((l, i) => (
               <Reveal key={i} delay={(i % 3) + 1}>
                 <a className="lnk" href={l.href} target={l.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener" style={{ width: '100%' }}>
-                  {l.label} <span className="arr">&rarr;</span>
+                  {l.label} <span className="arr">→</span>
                 </a>
               </Reveal>
             ))}
           </div>
           <div className="support">
             <span className="slab">Support / Tips</span>
-            {support.map((l, i) => (
-              <a key={i} href={l.href} target="_blank" rel="noopener">{l.label}</a>
-            ))}
+            {support.map((l, i) => (<a key={i} href={l.href} target="_blank" rel="noopener">{l.label}</a>))}
           </div>
         </div>
       </section>
