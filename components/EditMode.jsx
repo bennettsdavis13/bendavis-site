@@ -4,6 +4,12 @@ import { useState, useEffect, useRef } from 'react';
 function parsePath(path) { return path.split('.').map((p) => (/^\d+$/.test(p) ? Number(p) : p)); }
 function setIn(obj, path, val) { const parts = parsePath(path); let o = obj; for (let i = 0; i < parts.length - 1; i++) o = o[parts[i]]; o[parts[parts.length - 1]] = val; }
 function getIn(obj, path) { const parts = parsePath(path); let o = obj; for (const p of parts) o = o[p]; return o; }
+function pageLabel() {
+  try {
+    const map = { '/': 'Home', '/modeling': 'Modeling', '/acting': 'Acting', '/content-creation': 'Content Creation', '/about': 'About', '/contact': 'Contact' };
+    return map[location.pathname] || 'site';
+  } catch (e) { return 'site'; }
+}
 function fileToB64(file) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.onerror = rej; r.readAsDataURL(file); }); }
 
 export default function EditMode() {
@@ -14,7 +20,7 @@ export default function EditMode() {
   const [msg, setMsg] = useState('');
   const replacements = useRef({});
 
-  useEffect(() => { fetch('/api/admin/me').then((r) => r.json()).then((j) => setAuthed(!!j.authed)).catch(() => {}); }, []);
+  useEffect(() => { fetch('/api/admin/me').then((r) => r.json()).then((j) => { setAuthed(!!j.authed); try { if (j.authed && sessionStorage.getItem('bd-editing') === '1') setEditing(true); } catch (e) {} }).catch(() => {}); }, []);
 
   function scrapeInto(content) {
     document.querySelectorAll('[data-edit]').forEach((el) => { try { setIn(content, el.getAttribute('data-edit'), el.innerText.replace(/ /g, ' ').trim()); } catch (e) {} });
@@ -32,23 +38,23 @@ export default function EditMode() {
 
   async function loadContent() { const j = await (await fetch('/api/admin/content')).json(); if (!j.ok) throw new Error('auth'); return j.content; }
 
-  async function applyChange(modify) {
+  async function applyChange(modify, message) {
     setBusy(true); setMsg('Updating...');
     try {
       const content = await loadContent();
       scrapeInto(content);
       await modify(content);
-      const r = await fetch('/api/admin/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) });
+      const r = await fetch('/api/admin/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content, message: message || ('Edit ' + pageLabel() + ' page') }) });
       const j = await r.json();
-      if (j.ok) { location.reload(); return; }
+      if (j.ok) { try { sessionStorage.setItem('bd-editing', '1'); } catch (e) {} location.reload(); return; }
       setMsg('Failed: ' + (j.error || '')); setBusy(false);
     } catch (e) { setMsg('Please log in again.'); setBusy(false); }
   }
 
   function addBlock(type, listPath) {
-    if (type === 'text') return applyChange((c) => { getIn(c, listPath).push({ type: 'text', text: 'New text. Click to edit it.' }); });
-    if (type === 'link') return applyChange((c) => { getIn(c, listPath).push({ type: 'link', label: 'New button', href: 'https://' }); });
-    if (type === 'video') return applyChange((c) => { getIn(c, listPath).push({ type: 'video', videoId: '' }); });
+    if (type === 'text') return applyChange((c) => { getIn(c, listPath).push({ type: 'text', text: 'New text. Click to edit it.' }); }, 'Add text block on ' + pageLabel());
+    if (type === 'link') return applyChange((c) => { getIn(c, listPath).push({ type: 'link', label: 'New button', href: 'https://' }); }, 'Add button block on ' + pageLabel());
+    if (type === 'video') return applyChange((c) => { getIn(c, listPath).push({ type: 'video', videoId: '' }); }, 'Add video block on ' + pageLabel());
     if (type === 'image') {
       const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
       inp.onchange = async () => {
@@ -59,7 +65,7 @@ export default function EditMode() {
           const b64 = await fileToB64(f);
           const r = await fetch('/api/admin/upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filename: f.name, dataBase64: b64 }) });
           const j = await r.json();
-          if (j.ok) await applyChange((c) => { getIn(c, listPath).push({ type: 'image', src: j.url, alt: '', caption: 'New photo' }); });
+          if (j.ok) await applyChange((c) => { getIn(c, listPath).push({ type: 'image', src: j.url, alt: '', caption: 'New photo' }); }, 'Add photo block on ' + pageLabel());
           else { setMsg('Upload failed.'); setBusy(false); }
         } catch (e) { setMsg('Upload failed.'); setBusy(false); }
       };
@@ -121,7 +127,7 @@ export default function EditMode() {
       const add = e.target.closest('[data-add-block]');
       if (add) { e.preventDefault(); e.stopPropagation(); addBlock(add.getAttribute('data-add-block'), add.getAttribute('data-add-path')); return; }
       const rem = e.target.closest('[data-edit-remove]');
-      if (rem) { e.preventDefault(); e.stopPropagation(); const p = rem.getAttribute('data-edit-remove'); if (confirm('Remove this block?')) { const parts = parsePath(p); const idx = parts.pop(); const listPath = parts.join('.'); applyChange((c) => { getIn(c, listPath).splice(idx, 1); }); } return; }
+      if (rem) { e.preventDefault(); e.stopPropagation(); const p = rem.getAttribute('data-edit-remove'); if (confirm('Remove this block?')) { const parts = parsePath(p); const idx = parts.pop(); const listPath = parts.join('.'); applyChange((c) => { getIn(c, listPath).splice(idx, 1); }, 'Remove block on ' + pageLabel()); } return; }
       const img = e.target.closest('[data-edit-img]');
       if (img) {
         e.preventDefault(); e.stopPropagation();
@@ -178,7 +184,7 @@ export default function EditMode() {
     try {
       const content = await loadContent();
       scrapeInto(content);
-      const r = await fetch('/api/admin/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) });
+      const r = await fetch('/api/admin/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content, message: 'Edit ' + pageLabel() + ' page' }) });
       const j = await r.json();
       if (j.ok) { setMsg('Saved! Your site updates in about a minute.'); setDirty(false); replacements.current = {}; }
       else setMsg('Save failed: ' + (j.error || ''));
@@ -188,6 +194,7 @@ export default function EditMode() {
 
   async function logout() {
     if (dirty && !confirm('You have unsaved changes. Log out anyway?')) return;
+    try { sessionStorage.removeItem('bd-editing'); } catch (e) {}
     try { await fetch('/api/admin/logout', { method: 'POST' }); } catch (e) {}
     location.reload();
   }
@@ -197,14 +204,14 @@ export default function EditMode() {
   return (
     <>
       {!editing ? (
-        <button className="em-fab" onClick={() => setEditing(true)} aria-label="Edit site">Edit site</button>
+        <button className="em-fab" onClick={() => { try { sessionStorage.setItem('bd-editing', '1'); } catch (e) {} setEditing(true); }} aria-label="Edit site">Edit site</button>
       ) : (
         <div className="em-bar">
           <span className="em-title">Edit mode</span>
           <span className="em-hint">Click text to edit, click a photo to replace, drag to reorder, add blocks below each section</span>
           <span className="em-msg">{msg}</span>
           <a className="em-btn" href="/admin/quick">Quick edits</a>
-          <button className="em-btn" onClick={() => { if (!dirty || confirm('Discard unsaved changes?')) location.reload(); }}>Exit</button>
+          <button className="em-btn" onClick={() => { if (!dirty || confirm('Discard unsaved changes?')) { try { sessionStorage.removeItem('bd-editing'); } catch (e) {} location.reload(); } }}>Exit</button>
           <button className="em-btn" onClick={logout}>Log out</button>
           <button className="em-btn em-save" disabled={busy || !dirty} onClick={save}>{busy ? 'Saving...' : dirty ? 'Save' : 'Saved'}</button>
         </div>

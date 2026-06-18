@@ -55,7 +55,7 @@ export default function Quick() {
 
   async function save() {
     setBusy(true); setMsg('Saving...');
-    const r = await fetch('/api/admin/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content }) });
+    const r = await fetch('/api/admin/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content, message: 'Update contact details and links' }) });
     const j = await r.json(); setBusy(false);
     if (j.ok) { setOrig(JSON.stringify(content)); setMsg('Saved! Your site updates in about a minute.'); }
     else setMsg('Save failed: ' + (j.error || ''));

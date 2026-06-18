@@ -13,7 +13,8 @@ export async function POST(req) {
   try {
     const json = JSON.stringify(content, null, 2);
     const b64 = Buffer.from(json, 'utf8').toString('base64');
-    await putFile('data/content.json', b64, 'Update site content via admin');
+    const message = (typeof body.message === 'string' && body.message.trim()) ? body.message.trim().slice(0, 120) : 'Update site content';
+    await putFile('data/content.json', b64, message);
     return Response.json({ ok: true });
   } catch (e) {
     return Response.json({ ok: false, error: String(e.message || e) }, { status: 500 });
