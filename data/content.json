@@ -20,19 +20,19 @@
   "stats": [
     {
       "n": "6'9\"",
-      "l": "Standing Tall"
+      "l": "STANDING TALL"
     },
     {
       "n": "41K+",
-      "l": "On Instagram"
+      "l": "ON INSTAGRAM"
     },
     {
       "n": "120+",
-      "l": "Posts & Climbing"
+      "l": "POSTS & CLIMBING"
     },
     {
       "n": "2",
-      "l": "Cities · PHL & NYC"
+      "l": "CITIES · PHL & NYC"
     }
   ],
   "marquee": [
@@ -44,9 +44,9 @@
     "Built Different"
   ],
   "home": {
-    "kicker": "Philadelphia & New York City",
-    "h1line1": "Ben",
-    "h1line2": "Davis",
+    "kicker": "PHILADELPHIA & NEW YORK CITY",
+    "h1line1": "BEN",
+    "h1line2": "DAVIS",
     "sub_bold": "6'9\" creator, actor & model.",
     "sub_rest": "Too tall to fit in the closet. Lifestyle, fitness, fashion & fun.",
     "portrait": "/assets/headshot.jpg",
@@ -54,8 +54,8 @@
     "portraitTagSub": "EVERY INCH ON BRAND",
     "primaryCtaLabel": "Collabs & Bookings",
     "ghostCtaLabel": "Follow on Instagram",
-    "workEyebrow": "What I Do",
-    "workTitle": "Work with me",
+    "workEyebrow": "WHAT I DO",
+    "workTitle": "WORK WITH ME",
     "blocks": []
   },
   "pages": {
