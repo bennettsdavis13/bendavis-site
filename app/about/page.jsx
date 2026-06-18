@@ -18,11 +18,11 @@ export default async function About() {
       <section className="block page-head">
         <div className="wrap about-head">
           <div>
-            <Reveal><div className="eyebrow">{p.eyebrow}</div></Reveal>
-            <Reveal as="h1" className="display"><span>{p.title}</span></Reveal>
+            <div className="eyebrow">{p.eyebrow}</div>
+            <h1 className="display"><span>{p.title}</span></h1>
           </div>
           {p.heroImage ? (
-            <Reveal delay={1} className="about-hero-img"><ZoomImg src={p.heroImage} alt="Ben Davis, 6 foot 9 creator, actor and model" /></Reveal>
+            <div className="about-hero-img"><ZoomImg src={p.heroImage} alt="Ben Davis, 6 foot 9 creator, actor and model" /></div>
           ) : null}
         </div>
       </section>

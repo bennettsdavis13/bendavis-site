@@ -24,13 +24,13 @@ export default async function Contact() {
     <>
       <section className="block page-head">
         <div className="wrap">
-          <Reveal><div className="eyebrow">{p.eyebrow}</div></Reveal>
-          <Reveal as="h1" className="display"><span>{p.title}</span></Reveal>
-          <Reveal><p className="lead">{p.intro}</p></Reveal>
-          <Reveal><div className="hero-actions" style={{ marginTop: 30 }}>
+          <div className="eyebrow">{p.eyebrow}</div>
+          <h1 className="display"><span>{p.title}</span></h1>
+          <p className="lead">{p.intro}</p>
+          <div className="hero-actions" style={{ marginTop: 30 }}>
             <EmailButton email={c.site.email} subject="Collab / Booking Inquiry" className="btn btn-primary" label={c.site.email} />
             <a href={s.instagram} target="_blank" rel="noopener" className="btn btn-ghost">DM on Instagram</a>
-          </div></Reveal>
+          </div>
         </div>
       </section>
 
