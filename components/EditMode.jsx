@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 function parsePath(path) { return path.split('.').map((p) => (/^\d+$/.test(p) ? Number(p) : p)); }
 function setIn(obj, path, val) { const parts = parsePath(path); let o = obj; for (let i = 0; i < parts.length - 1; i++) o = o[parts[i]]; o[parts[parts.length - 1]] = val; }
@@ -19,6 +20,7 @@ export default function EditMode() {
   const [dirty, setDirty] = useState(false);
   const [msg, setMsg] = useState('');
   const replacements = useRef({});
+  const pathname = usePathname();
 
   useEffect(() => { fetch('/api/admin/me').then((r) => r.json()).then((j) => { setAuthed(!!j.authed); try { if (j.authed && sessionStorage.getItem('bd-editing') === '1') setEditing(true); } catch (e) {} }).catch(() => {}); }, []);
 
@@ -199,7 +201,7 @@ export default function EditMode() {
     location.reload();
   }
 
-  if (!authed) return null;
+  if (!authed || (pathname && pathname.startsWith('/admin'))) return null;
 
   return (
     <>

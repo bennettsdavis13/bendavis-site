@@ -15,6 +15,7 @@ export default function Nav({ brand, email, pages }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   useEffect(() => { setOpen(false); }, [path]);
+  if (path && path.startsWith('/admin')) return null;
   const [b1, b2] = brand.split('.');
   return (
     <header className="nav">

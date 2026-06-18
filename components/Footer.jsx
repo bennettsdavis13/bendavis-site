@@ -1,5 +1,9 @@
+'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 export default function Footer({ site }) {
+  const path = usePathname();
+  if (path && path.startsWith('/admin')) return null;
   const [b1, b2] = site.brand.split('.');
   return (
     <footer>
