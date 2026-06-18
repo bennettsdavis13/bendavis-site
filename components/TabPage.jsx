@@ -1,6 +1,6 @@
 import { getContent } from '@/lib/content';
 import Reveal from './Reveal';
-import Feed from './Feed';
+import Short from './Short';
 import EmailButton from './EmailButton';
 
 export default async function TabPage({ pageKey }) {
@@ -8,25 +8,46 @@ export default async function TabPage({ pageKey }) {
   const p = c.pages[pageKey];
   return (
     <>
-      <section className="block page-head">
-        <div className="wrap">
-          <Reveal><div className="eyebrow">{p.eyebrow}</div></Reveal>
-          <Reveal as="h1" className="display"><span>{p.title}</span></Reveal>
-          <Reveal><p className="lead">{p.intro}</p></Reveal>
+      <section className="block tab-hero">
+        <div className="wrap tab-hero-grid">
+          <div className="tab-hero-copy">
+            <Reveal><div className="eyebrow">{p.eyebrow}</div></Reveal>
+            <Reveal as="h1" className="display"><span>{p.title}</span></Reveal>
+            <Reveal><p className="lead">{p.intro}</p></Reveal>
+            <Reveal><div className="hero-actions">
+              <EmailButton email={c.site.email} subject={`${p.title} inquiry`} className="btn btn-primary" label={p.ctaLabel || 'Book me'} />
+              <a href={c.social.instagram} target="_blank" rel="noopener" className="btn btn-ghost">Instagram</a>
+            </div></Reveal>
+          </div>
+          {p.videoId ? (
+            <Reveal delay={1} className="tab-hero-video">
+              <Short id={p.videoId} title={`${p.title} — Ben Davis`} />
+              <span className="vcap"><b>▶</b> {p.videoCaption}</span>
+            </Reveal>
+          ) : null}
         </div>
       </section>
 
-      <section className="block" style={{ paddingTop: 8 }}>
-        <div className="wrap">
-          <Reveal><div className="eyebrow">Watch &amp; Selects</div></Reveal>
-          <Feed videoId={p.videoId} videoTitle={`${p.title} — Ben Davis`} items={p.gallery} watchLabel={p.videoCaption} />
-        </div>
-      </section>
+      {p.gallery && p.gallery.length ? (
+        <section className="block" style={{ paddingTop: 6 }}>
+          <div className="wrap">
+            <Reveal><div className="eyebrow">Selects</div></Reveal>
+            <div className="tgal">
+              {p.gallery.map((g, i) => (
+                <Reveal key={i} className="tgal-item" delay={(i % 3) + 1}>
+                  <img src={g.src} alt={g.alt} loading="lazy" />
+                  {g.caption ? <span className="cap">{g.caption}</span> : null}
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
-      <section className="book" style={{ paddingTop: 36 }}>
+      <section className="tab-cta">
         <div className="wrap">
           <Reveal as="h2" className="display"><span>{p.ctaLabel || "Let's collab"}</span></Reveal>
-          <Reveal><div className="hero-actions" style={{ justifyContent: 'center', marginTop: 24 }}>
+          <Reveal><div className="hero-actions" style={{ justifyContent: 'center', marginTop: 20 }}>
             <EmailButton email={c.site.email} subject={`${p.title} inquiry`} className="btn btn-primary" label="Email Ben" />
             <a href={c.social.instagram} target="_blank" rel="noopener" className="btn btn-ghost">DM on Instagram</a>
           </div></Reveal>
