@@ -7,8 +7,9 @@ export async function POST(req) {
   if (!checkPassword(String(body.password || ''))) {
     return Response.json({ ok: false, error: 'Wrong password' }, { status: 401 });
   }
+  // session-only cookie: no maxAge, so it clears when the browser closes (login each session)
   cookies().set(COOKIE_NAME, signSession(), {
-    httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge: 60 * 60 * 24 * 30,
+    httpOnly: true, secure: true, sameSite: 'lax', path: '/',
   });
   return Response.json({ ok: true });
 }

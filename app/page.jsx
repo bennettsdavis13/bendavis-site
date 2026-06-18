@@ -58,8 +58,8 @@ export default async function Home() {
 
       <section className="block">
         <div className="wrap">
-          <div className="eyebrow">What I Do</div>
-          <h2 className="display" style={{ fontSize: 'clamp(38px,6vw,76px)' }}>Work with me</h2>
+          <div className="eyebrow"><Edit path="home.workEyebrow">{h.workEyebrow}</Edit></div>
+          <h2 className="display" style={{ fontSize: 'clamp(38px,6vw,76px)' }}><Edit path="home.workTitle">{h.workTitle}</Edit></h2>
           <div className="work-grid">
             {pillars.map((p, i) => {
               const pg = c.pages[p.key];
@@ -67,8 +67,8 @@ export default async function Home() {
                 <Reveal key={p.key} delay={i + 1}>
                   <Link href={`/${p.key}`} className="card" style={{ display: 'block' }}>
                     <div className="num">{p.num}</div>
-                    <h3>{pg.title}</h3>
-                    <p>{pg.intro}</p>
+                    <h3><Edit path={`pages.${p.key}.title`}>{pg.title}</Edit></h3>
+                    <p><Edit path={`pages.${p.key}.intro`}>{pg.intro}</Edit></p>
                     <div style={{ marginTop: 16, fontWeight: 800, letterSpacing: '.06em', color: 'var(--blue-deep)', fontSize: 13, textTransform: 'uppercase' }}>Explore →</div>
                   </Link>
                 </Reveal>
