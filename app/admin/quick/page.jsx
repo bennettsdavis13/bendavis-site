@@ -159,5 +159,13 @@ const CSS = `
 .qpromo-fields{flex:1;display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
 .qpromo .qfield{margin:0}
 .qremove{background:none;border:none;color:#b23b3b;font-weight:700;font-size:13px;cursor:pointer;padding:11px 4px;white-space:nowrap}
-@media(max-width:560px){.qpromo{flex-direction:column;align-items:stretch}.qpromo-fields{grid-template-columns:1fr}}
+@media(max-width:560px){
+  .qbar{flex-wrap:wrap;padding:10px 14px;gap:8px}
+  .qbrand{font-size:18px}
+  .qbrand small{display:none}
+  .qactions{flex:0 0 auto}
+  .qbtn{padding:8px 14px;font-size:12px}
+  .qpromo{flex-direction:column;align-items:stretch}
+  .qpromo-fields{grid-template-columns:1fr}
+}
 `;
