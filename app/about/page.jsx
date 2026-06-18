@@ -1,6 +1,7 @@
 import { getContent } from '@/lib/content';
 import Reveal from '@/components/Reveal';
 import Short from '@/components/Short';
+import ZoomImg from '@/components/ZoomImg';
 
 export async function generateMetadata() {
   const c = await getContent();
@@ -21,7 +22,7 @@ export default async function About() {
             <Reveal as="h1" className="display"><span>{p.title}</span></Reveal>
           </div>
           {p.heroImage ? (
-            <Reveal delay={1} className="about-hero-img"><img src={p.heroImage} alt="Ben Davis, 6 foot 9 creator, actor and model" /></Reveal>
+            <Reveal delay={1} className="about-hero-img"><ZoomImg src={p.heroImage} alt="Ben Davis, 6 foot 9 creator, actor and model" /></Reveal>
           ) : null}
         </div>
       </section>
@@ -72,7 +73,7 @@ export default async function About() {
                 <p>{p.guide.body}</p>
                 <a href={p.guide.ctaHref} target="_blank" rel="noopener" className="btn btn-primary">{p.guide.ctaLabel} &rarr;</a>
               </div>
-              <div className="fimg"><img src={p.guide.image} alt={p.guide.title} /></div>
+              <div className="fimg"><ZoomImg src={p.guide.image} alt={p.guide.title} /></div>
             </div>
           </Reveal>
           <Reveal delay={1}>

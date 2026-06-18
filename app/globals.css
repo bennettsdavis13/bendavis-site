@@ -261,3 +261,9 @@ section.block{padding:58px 0}
 .copy-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--cream);padding:13px 22px;border-radius:100px;font-size:14px;font-weight:700;letter-spacing:.01em;box-shadow:0 18px 44px -16px rgba(0,0,0,.55);z-index:300;display:flex;align-items:center;gap:7px;white-space:nowrap;animation:toastIn .24s ease}
 .copy-toast b{color:var(--blue)}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* click-to-fullscreen lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(21,19,15,.93);z-index:500;display:flex;align-items:center;justify-content:center;padding:28px;cursor:zoom-out;animation:fadeIn .2s ease}
+.lb-img{max-width:96vw !important;max-height:92vh !important;width:auto !important;height:auto !important;border-radius:10px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);cursor:default;transform:none !important;filter:none !important;object-fit:contain !important}
+.lightbox-close{position:fixed;top:14px;right:22px;background:none;border:none;color:var(--cream);font-size:40px;line-height:1;cursor:pointer;font-weight:300;z-index:501}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}

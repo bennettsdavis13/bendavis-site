@@ -2,6 +2,7 @@ import { getContent } from '@/lib/content';
 import Reveal from './Reveal';
 import Short from './Short';
 import EmailButton from './EmailButton';
+import ZoomImg from './ZoomImg';
 
 export default async function TabPage({ pageKey }) {
   const c = await getContent();
@@ -35,7 +36,7 @@ export default async function TabPage({ pageKey }) {
             <div className="tgal">
               {p.gallery.map((g, i) => (
                 <Reveal key={i} className="tgal-item" delay={(i % 3) + 1}>
-                  <img src={g.src} alt={g.alt} loading="lazy" />
+                  <ZoomImg src={g.src} alt={g.alt} />
                   {g.caption ? <span className="cap">{g.caption}</span> : null}
                 </Reveal>
               ))}

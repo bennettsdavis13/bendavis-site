@@ -3,6 +3,7 @@ import { getContent } from '@/lib/content';
 import Marquee from '@/components/Marquee';
 import Reveal from '@/components/Reveal';
 import EmailButton from '@/components/EmailButton';
+import ZoomImg from '@/components/ZoomImg';
 
 export default async function Home() {
   const c = await getContent();
@@ -34,7 +35,7 @@ export default async function Home() {
                 <div className="tick"><i></i>0</div>
               </div>
               <div className="portrait">
-                <img src={h.portrait} alt="Ben Davis, 6 foot 9 creator, actor and model" />
+                <ZoomImg src={h.portrait} alt="Ben Davis, 6 foot 9 creator, actor and model" />
                 <div className="tag">{h.portraitTag}<small>{h.portraitTagSub}</small></div>
               </div>
             </div>
