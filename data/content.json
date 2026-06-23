@@ -84,12 +84,7 @@
         }
       ],
       "ctaLabel": "BOOK A SHOOT",
-      "blocks": [
-        {
-          "type": "text",
-          "text": "New text. Click to edit it."
-        }
-      ]
+      "blocks": []
     },
     "acting": {
       "nav": "Acting",
