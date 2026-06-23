@@ -61,30 +61,35 @@
   "pages": {
     "modeling": {
       "nav": "Modeling",
-      "eyebrow": "Editorial / Fashion / Campaigns",
-      "title": "Modeling",
-      "intro": "A 6'9\" frame that makes wardrobe, scale and presence impossible to ignore on camera. Editorial, fashion and product shoots, on location or in studio, for brands that want a look nobody else can give them.",
+      "eyebrow": "EDITORIAL / FASHION / CAMPAIGNS",
+      "title": "MODELING",
+      "intro": "A 6'9\" frame that makes wardrobe, scale, and presence impossible to ignore on camera. Editorial, fashion and product shoots, on location or in studio, for brands that want a look nobody else can give them.",
       "videoId": "qUDIqGadeL4",
-      "videoCaption": "On set, in motion.",
+      "videoCaption": "ON SET, IN MOTION.",
       "gallery": [
         {
           "src": "/media/modeling_1.jpg",
           "alt": "Ben Davis studio editorial in a white tank with cowboy boots",
-          "caption": "Studio editorial"
+          "caption": "STUDIO EDITORIAL"
         },
         {
           "src": "/media/modeling_2.jpg",
           "alt": "Ben Davis on location by the coast",
-          "caption": "On location"
+          "caption": "ON LOCATION"
         },
         {
           "src": "/media/modeling_3.jpg",
           "alt": "Ben Davis editorial, arms crossed against a stone wall in Italy",
-          "caption": "Editorial · Italy"
+          "caption": "EDITORIAL · ITALY"
         }
       ],
-      "ctaLabel": "Book a shoot",
-      "blocks": []
+      "ctaLabel": "BOOK A SHOOT",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "New text. Click to edit it."
+        }
+      ]
     },
     "acting": {
       "nav": "Acting",
