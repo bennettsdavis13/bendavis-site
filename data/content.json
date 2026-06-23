@@ -84,7 +84,14 @@
         }
       ],
       "ctaLabel": "BOOK A SHOOT",
-      "blocks": []
+      "blocks": [
+        {
+          "type": "image",
+          "src": "https://raw.githubusercontent.com/bennettsdavis13/bendavis-site/main/public/media/uploads/1782231130199-117_0449.heic",
+          "alt": "",
+          "caption": "New photo"
+        }
+      ]
     },
     "acting": {
       "nav": "Acting",
